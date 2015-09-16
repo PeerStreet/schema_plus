@@ -100,7 +100,7 @@ module SchemaPlus
         # won't let you create cycles in the first place.)
         break_fk_cycles while strongly_connected_components.any?{|component| component.size > 1}
 
-        tsort().each do |table|
+        tsort.sort.each do |table|
           table_dump = @table_dumps[table]
           if i = (table_dump =~ /^\s*[e]nd\s*$/)
             table_dump.insert i, dump_indexes(table) + dump_foreign_keys(@inline_fks[table], :inline => true)
